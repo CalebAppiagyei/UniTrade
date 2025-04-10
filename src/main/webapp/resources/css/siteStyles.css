@@ -1,6 +1,6 @@
 /*****************************************************
 *   Cascading Style Sheets (CSS) Style Definitions   *
-*   Created by Osman Balci for the VTQuest app.      *
+*   Created by Osman Balci for the CloudDrive app    *
 *****************************************************/
 
 html, body {
@@ -11,7 +11,7 @@ html, body {
 }
 
 body, p {
-    font-family: "Times New Roman", Times, sans-serif;
+    font-family: "Times New Roman", serif;
     font-size: 12pt;
     font-style: normal;
     font-weight: normal;
@@ -28,18 +28,42 @@ h1 {
     color: maroon;
 }
 
+table {
+    border-width: thin;
+    border-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: black;
+}
+
+.bottomSpace {
+    margin-bottom: 5px;
+}
+
+
 /*
 =======================================
 |   Site Template Component Styling   |
 =======================================
-*/
 
-/*
+In XHTML code, we refer to a CSS style defined in a CSS file by using Selectors.
+
+See CSS Selector Reference at https://www.w3schools.com/cssref/css_selectors.asp
+
+#id         defines the style of a page component whose unique identification is id.
+.stylename  defines the style of all elements marked as class="stylename".
+
+Since ids are unique, the #id styling is used only once.
+.stylename can be used many times to style a class of elements.
+
 Style the div component whose unique id is "page"
 <div id="page"> in siteTemplate
 */
 #page {
-    font-family: "Times New Roman", Times, sans-serif;
+    font-family: "Times New Roman", serif;
     font-size: 12pt;
     font-style: normal;
     font-weight: normal;
@@ -120,14 +144,14 @@ a:active {
 }
 
 /*
-==============================
-|   Main Style Definitions   |
-==============================
+===============================
+|   Other Style Definitions   |
+===============================
 */
 
 /* Used in headerTemplate */
 .headerTitle {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Times New Roman", serif;
     font-size: 18pt;
     font-style: italic;
     font-weight: normal;
@@ -135,37 +159,41 @@ a:active {
     color: mediumblue;
 }
 
-/*
-Proportionately scale image to show on mobile devices and smaller browser windows.
-Scale the image downward, but do not enlarge it beyond its actual width size.
-*/
-.scalableImage {
-    max-width: 100%;
-    height: auto;
-    border: none;
+.titleSmall, .alertUser {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    color: darkgreen;
 }
 
-/* Style p:panelGrid Column 1 */
-.panelGridColumn1 {
-    text-align: right;
-    white-space: nowrap;        /* Disallow line break */
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-    background-color: papayawhip !important;
+/* Used in Profile to style user's profile photo in a circle */
+.profilePhoto {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
-/* Style p:panelGrid Column 2 */
-.panelGridColumn2 {
-    text-align: left;
-    white-space: nowrap;        /* Disallow line break */
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-    background-color: oldlace !important;
+/* Used in headerTemplate to style user's profile photo in a circle */
+.smallProfilePhoto {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    vertical-align: middle;
 }
 
-/* Used to color panel backgrounds */
-.ui-panel-content {
-    background-color: oldlace !important;
+/* Used in UserFiles */
+.previewImage {
+    width: auto;
+    height: 36px;
 }
 
 /*
@@ -174,32 +202,57 @@ Scale the image downward, but do not enlarge it beyond its actual width size.
 ======================================
 */
 
-/* Style the Google map display in Map.xhtml */
-.map {
-    margin-left: 10px;
-    margin-right: 40px;
-    height:600px;
-}
-
-/* Used in many pages to display a heading */
-.headingText {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14pt;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: darkgreen;
-}
-
-/* Used in Information.xhtml to display building description text */
-.scrollableOutputText {
-    white-space: pre-wrap; /* This "preformatted" style keeps the line breaks in the text string */
-    text-align: left;
+/* Scrolls text vertically */
+.scrollableTextBox {
     display: block;
-    width: 100%;    /* 100% within the fieldset whose width is 50% */
-    height: 200px;
-    overflow: auto;
-    color: darkblue;
+    text-align: left;
+    height: 70px;
+    overflow-x: hidden;
+    overflow-y: auto;    /* Show vertical scrollbar only if there is scrollable data (Windows) */
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+/*
+=========================================
+|   Image and Video Responsive Design   |
+=========================================
+*/
+
+/* 
+Proportionately scale image to show on mobile devices and smaller browser windows.
+Scale the image downward, but do not enlarge it beyond the width size of 500px.
+*/
+.scalableImage {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    border: none;
+}
+
+/* 
+------------------------------------------
+Styles for Responsive YouTube Video Player
+------------------------------------------
+We use the 9/16 (=56.25) ratio to play YouTube Videos.
+The padding-top applies the ratio of 56.25% to make sure
+that the width and height preserve the 9/16 ratio.
+Resizing the window of the player resizes the video player.
+*/
+
+.responsive-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 /*
@@ -208,8 +261,29 @@ Scale the image downward, but do not enlarge it beyond its actual width size.
 =========================================
 */
 
-/* PrimeFaces dataTable Row Paddings */
+/* Set PrimeFaces dataTable row paddings */
 .ui-datatable-data td {
     padding-top: 3px !important;
     padding-bottom: 3px !important;
+}
+
+/* Color PrimeFaces panel content background */
+.ui-panel-content {
+    background-color: oldlace !important;
+}
+
+/* Color PrimeFaces sidebar background */
+.ui-sidebar {
+    background-color: linen !important;
+}
+
+/* Color PrimeFaces fieldset container background */
+.ui-fieldset {
+    background-color: aliceblue !important;
+}
+
+/* PrimeFaces tieredMenu skinning */
+.ui-menu .ui-menu-list .ui-menu-child {
+    white-space: nowrap;
+    width: auto !important;
 }
